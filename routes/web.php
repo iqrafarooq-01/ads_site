@@ -5,12 +5,35 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+| Home page Route
+*/
+Route::get('/', 'HomeController@index');
+
+/*
+| Area Route
+| {area} it will acess the Area Model in were we are passing slug through URL
+*/
+Route::get('/user/area/{area}', 'User\AreaController@store')->name('user.area.store');
+/*
+| Category Route
+| 
+*/
+Route::group(['prefix'=> '/{area}'], function() {
+/* Category  */
+    Route::group(['prefix'=>'/categories'], function() {
+        
+        Route::get('/', 'Category\CategoryController@index')->name('category.index');
 });
+/* */
+
+
+});
+
+
+Auth::routes();
+
+
